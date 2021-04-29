@@ -15,12 +15,12 @@ def solve(G):
         k: list of edges to remove
     """
     if G.number_of_nodes() <= 30:
-        return solver(G, 1, 15)
+        return solver(G.copy(), 1, 15)
         # return solver(G, 1, 2)
     elif G.number_of_nodes() <= 50:
-        return solver(G, 3, 50)
+        return solver(G.copy(), 3, 50)
     else:
-        return solver(G, 5, 100)
+        return solver(G.copy(), 5, 100)
 
 def solver(G, c, k):
     """
@@ -145,6 +145,7 @@ if __name__ == '__main__':
     for input_path in inputs:
         output_path = 'outputs/' + basename(normpath(input_path))[:-3] + '.out'
         G = read_input_file(input_path)
+        print(input_path)
         c, k = solve(G)
         assert is_valid_solution(G, c, k)
         distance = calculate_score(G, c, k)
