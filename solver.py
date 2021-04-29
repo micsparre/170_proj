@@ -41,8 +41,8 @@ def solver(G, c, k):
     edges_deleted = [] # list of tuples of edges deleted
     timeout = 0
     cost, path = nx.single_source_dijkstra(G, start_node, target = end_node, weight = "weight")
-    print("original cost: ", cost)
-    print("original path: ", path)
+    # print("original cost: ", cost)
+    # print("original path: ", path)
     while (c != 0 or k != 0) and timeout < 100:
         cost, path = nx.single_source_dijkstra(G, start_node, target = end_node, weight = "weight")
         # print(cost, len(path))
@@ -107,12 +107,12 @@ def solver(G, c, k):
 
         timeout += 1
         # print("time: ", timeout)
-    print("nodes to delete: ", nodes_deleted)
-    print("edges to delete: ", edges_deleted)
-    print("new shortest cost: ", nx.shortest_path_length(G, source = start_node, target = end_node, weight = "weight"))
-    print("new shortest path: ", nx.dijkstra_path(G, start_node, end_node))
-    print("num nodes deleted: ", len(nodes_deleted))
-    print("num edges deleted: ", len(edges_deleted))
+    # print("nodes to delete: ", nodes_deleted)
+    # print("edges to delete: ", edges_deleted)
+    # print("new shortest cost: ", nx.shortest_path_length(G, source = start_node, target = end_node, weight = "weight"))
+    # print("new shortest path: ", nx.dijkstra_path(G, start_node, end_node))
+    # print("num nodes deleted: ", len(nodes_deleted))
+    # print("num edges deleted: ", len(edges_deleted))
     return nodes_deleted, edges_deleted
 
 # solve(read_input_file("inputs/medium/medium-200.in"))
