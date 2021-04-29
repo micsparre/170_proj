@@ -18,7 +18,7 @@ def solve(G):
         return solver(G, 1, 15)
         # return solver(G, 1, 2)
     elif G.number_of_nodes() <= 50:
-        return solver(G, 3, 50) 
+        return solver(G, 3, 50)
     else:
         return solver(G, 5, 100)
 
@@ -67,7 +67,7 @@ def solver(G, c, k):
                 else:
                     # print("not connected")
                     num_can_be_deleted += 1
-                    
+
             if num_can_be_deleted == len(path) - 2:
                 # print("No nodes can be deleted so c = 0")
                 c = 0  # change back if future edge deleted ?
@@ -81,7 +81,7 @@ def solver(G, c, k):
         elif len(path) == 2 and k == 0:  # s->t is shortest path (so no node deletion)
             # print("second")
             break
-        
+
         elif k > 0:
             #delete an edge
             # print("third")
@@ -104,18 +104,18 @@ def solver(G, c, k):
                 G.remove_edge(edge_to_delete[0], edge_to_delete[1])
                 edges_deleted.append(edge_to_delete)
                 k -= 1
-            
+
         timeout += 1
-        # print("time: ", timeout) 
+        # print("time: ", timeout)
     print("nodes to delete: ", nodes_deleted)
-    print("edges to delete: ", edges_deleted)   
+    print("edges to delete: ", edges_deleted)
     print("new shortest cost: ", nx.shortest_path_length(G, source = start_node, target = end_node, weight = "weight"))
     print("new shortest path: ", nx.dijkstra_path(G, start_node, end_node))
     print("num nodes deleted: ", len(nodes_deleted))
     print("num edges deleted: ", len(edges_deleted))
     return nodes_deleted, edges_deleted
 
-solve(read_input_file("inputs/medium/medium-200.in"))
+# solve(read_input_file("inputs/medium/medium-200.in"))
 # solve(read_input_file("input/hw12.in"))
 
 # NetworkX useful functions:
@@ -140,15 +140,15 @@ solve(read_input_file("inputs/medium/medium-200.in"))
 
 
 # For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
-# if __name__ == '__main__':
-#     inputs = glob.glob('inputs/*')
-#     for input_path in inputs:
-#         output_path = 'outputs/' + basename(normpath(input_path))[:-3] + '.out'
-#         G = read_input_file(input_path)
-#         c, k = solve(G)
-#         assert is_valid_solution(G, c, k)
-#         distance = calculate_score(G, c, k)
-#         write_output_file(G, c, k, output_path)
+if __name__ == '__main__':
+    inputs = glob.glob('inputs/*')
+    for input_path in inputs:
+        output_path = 'outputs/' + basename(normpath(input_path))[:-3] + '.out'
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
 
 
 
