@@ -405,38 +405,41 @@ if __name__ == '__main__':
     inputs = glob.glob('inputs/large/*')
     print(inputs[57:])
 
-    # num = 0
-    # for input_path in inputs:
-    #     output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
-    #     G = read_input_file(input_path)
-    #     c, k = solve(G)
-    #     assert is_valid_solution(G, c, k)
-    #     distance = calculate_score(G, c, k)
-    #     write_output_file(G, c, k, output_path)
-    #     num += 1
-    #     print(num)
+    num = 0
+    for input_path in inputs[58:]:
+        output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
+        print("input path:", input_path, "num:", num)
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
+        num += 1
+        
 
-    # inputs = glob.glob('inputs/medium/*')
-    # num = 0
-    # for input_path in inputs:
-    #     output_path = 'outputs/medium/' + basename(normpath(input_path))[:-3] + '.out'
-    #     G = read_input_file(input_path)
-    #     c, k = solve(G)
-    #     assert is_valid_solution(G, c, k)
-    #     distance = calculate_score(G, c, k)
-    #     write_output_file(G, c, k, output_path)
-    #     num += 1
-    #     print(num)
+    inputs = glob.glob('inputs/medium/*')
+    num = 0
+    for input_path in inputs:
+        output_path = 'outputs/medium/' + basename(normpath(input_path))[:-3] + '.out'
+        print("input path:", input_path, "num:", num)
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
+        num += 1
+        print(num)
 
-    # inputs = glob.glob('inputs/small/*')
-    # num = 0
-    # for input_path in inputs:
-    #     output_path = 'outputs/small/' + basename(normpath(input_path))[:-3] + '.out'
-    #     G = read_input_file(input_path)
-    #     c, k = solve(G)
-    #     assert is_valid_solution(G, c, k)
-    #     distance = calculate_score(G, c, k)
-    #     write_output_file(G, c, k, output_path)
-    #     num += 1
-    #     print(num)
+    inputs = glob.glob('inputs/small/*')
+    num = 0
+    for input_path in inputs:
+        output_path = 'outputs/small/' + basename(normpath(input_path))[:-3] + '.out'
+        print("input path:", input_path, "num:", num)
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
+        num += 1
+        print(num)
 
