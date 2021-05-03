@@ -148,10 +148,12 @@ def solver1(G, c, k, q):
     edges_deleted = [] # list of tuples of edges deleted
     timeout = 0
     cost, path = nx.single_source_dijkstra(G, start_node, target = end_node, weight = "weight")
+
+    c_plus_k = c + k
     while (c != 0 or k != 0) and timeout < 10000:
         cost, path = nx.single_source_dijkstra(G, start_node, target = end_node, weight = "weight")
-        flip = random.randint(0, 1)
-        if flip == 0 and len(path) > 2 and c > 0:
+        flip = random.random()
+        if flip < c_plus_k and len(path) > 2 and c > 0:
             node_to_delete = None
             greatest_cost = cost
             num_can_be_deleted = 0
