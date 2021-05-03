@@ -37,10 +37,10 @@ def solve(G):
         path_cost_4, nodes_deleted_4, edges_deleted_4 = solver4(G.copy(), 5, 100)
         # path_cost_5, nodes_deleted_5, edges_deleted_5 = brute_force(G.copy(), 5, 100)
     
-    print("1: ", path_cost_1 - path_score, nodes_deleted_1, edges_deleted_1)
-    print("2: ", path_cost_2 - path_score, nodes_deleted_2, edges_deleted_2)
-    print("3: ", path_cost_3 - path_score, nodes_deleted_3, edges_deleted_3)
-    print("4: ", path_cost_4 - path_score, nodes_deleted_4, edges_deleted_4)
+    # print("1: ", path_cost_1 - path_score, nodes_deleted_1, edges_deleted_1)
+    # print("2: ", path_cost_2 - path_score, nodes_deleted_2, edges_deleted_2)
+    # print("3: ", path_cost_3 - path_score, nodes_deleted_3, edges_deleted_3)
+    # print("4: ", path_cost_4 - path_score, nodes_deleted_4, edges_deleted_4)
 
     if (path_cost_1 >= path_cost_2 and path_cost_1 >= path_cost_3 and path_cost_1 >= path_cost_4):
         return nodes_deleted_1, edges_deleted_1
@@ -376,7 +376,7 @@ def solver4(G, c, k):
 
 
 
-solve(read_input_file("inputs/small/small-67.in"))
+# solve(read_input_file("inputs/small/small-67.in"))
 # solve(read_input_file("input/hw12.in"))
 
 # NetworkX useful functions:
@@ -401,40 +401,40 @@ solve(read_input_file("inputs/small/small-67.in"))
 
 
 # For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
-# if __name__ == '__main__':
-#     inputs = glob.glob('inputs/large/*')
-#     num = 0
-#     for input_path in inputs:
-#         output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
-#         G = read_input_file(input_path)
-#         c, k = solve(G)
-#         assert is_valid_solution(G, c, k)
-#         distance = calculate_score(G, c, k)
-#         write_output_file(G, c, k, output_path)
-#         num += 1
-#         print(num)
+if __name__ == '__main__':
+    inputs = glob.glob('inputs/large/*')
+    num = 0
+    for input_path in inputs:
+        output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
+        num += 1
+        print(num)
 
-#     inputs = glob.glob('inputs/medium/*')
-#     num = 0
-#     for input_path in inputs:
-#         output_path = 'outputs/medium/' + basename(normpath(input_path))[:-3] + '.out'
-#         G = read_input_file(input_path)
-#         c, k = solve(G)
-#         assert is_valid_solution(G, c, k)
-#         distance = calculate_score(G, c, k)
-#         write_output_file(G, c, k, output_path)
-#         num += 1
-#         print(num)
+    inputs = glob.glob('inputs/medium/*')
+    num = 0
+    for input_path in inputs:
+        output_path = 'outputs/medium/' + basename(normpath(input_path))[:-3] + '.out'
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
+        num += 1
+        print(num)
 
-#     inputs = glob.glob('inputs/small/*')
-#     num = 0
-#     for input_path in inputs:
-#         output_path = 'outputs/small/' + basename(normpath(input_path))[:-3] + '.out'
-#         G = read_input_file(input_path)
-#         c, k = solve(G)
-#         assert is_valid_solution(G, c, k)
-#         distance = calculate_score(G, c, k)
-#         write_output_file(G, c, k, output_path)
-#         num += 1
-#         print(num)
+    inputs = glob.glob('inputs/small/*')
+    num = 0
+    for input_path in inputs:
+        output_path = 'outputs/small/' + basename(normpath(input_path))[:-3] + '.out'
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
+        num += 1
+        print(num)
 
