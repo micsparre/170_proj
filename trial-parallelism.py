@@ -92,10 +92,10 @@ def solve(G):
         p3.join()
         p4.join()
 
-        path_cost_1, nodes_deleted_1, edges_deleted_1 = q1.get()
-        path_cost_2, nodes_deleted_2, edges_deleted_2 = q2.get()
-        path_cost_3, nodes_deleted_3, edges_deleted_3 = q3.get()
-        path_cost_4, nodes_deleted_4, edges_deleted_4 = q4.get()
+        path_cost_1, nodes_deleted_1, edges_deleted_1 = q.get()
+        path_cost_2, nodes_deleted_2, edges_deleted_2 = q.get()
+        path_cost_3, nodes_deleted_3, edges_deleted_3 = q.get()
+        path_cost_4, nodes_deleted_4, edges_deleted_4 = q.get()
 
         # path_cost_1, nodes_deleted_1, edges_deleted_1 = solver1(G.copy(), 5, 100)
         # path_cost_2, nodes_deleted_2, edges_deleted_2 = solver2(G.copy(), 5, 100)
