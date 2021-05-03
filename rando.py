@@ -153,7 +153,7 @@ def solver1(G, c, k, q):
     while (c != 0 or k != 0) and timeout < 10000:
         cost, path = nx.single_source_dijkstra(G, start_node, target = end_node, weight = "weight")
         flip = random.random()
-        if flip < c_plus_k and len(path) > 2 and c > 0:
+        if flip < (c / c_plus_k) and len(path) > 2 and c > 0:
             node_to_delete = None
             greatest_cost = cost
             num_can_be_deleted = 0
@@ -178,7 +178,7 @@ def solver1(G, c, k, q):
                 c -= 1
         elif len(path) == 2 and k == 0:  # s->t is shortest path (so no node deletion)
             break
-        elif flip == 1 and k > 0:
+        elif flip >= (c / c_plus_k) and k > 0:
             #delete an edge
             max_cost = cost
             edge_to_delete = None
