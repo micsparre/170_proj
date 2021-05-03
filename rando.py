@@ -175,6 +175,12 @@ def solver1(G, c, k, q):
             if node_to_delete and greatest_cost >= cost:
                 G.remove_node(node_to_delete)
                 nodes_deleted.append(node_to_delete)
+                for edge in edges_deleted.copy():
+                    if edge[0] == node_to_delete or edge[1] == node_to_delete:
+                        print('it worked')
+                        edges_deleted.remove(edge)
+                        k += 1
+
                 c -= 1
         elif len(path) == 2 and k == 0:  # s->t is shortest path (so no node deletion)
             break
