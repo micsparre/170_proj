@@ -240,7 +240,7 @@ def solver1(G, c, k, q):
 if __name__ == '__main__':
     inputs = glob.glob('inputs/large/*')
     num = 0
-    for input_path in inputs[240:]:
+    for input_path in inputs[]:
         output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
         print("input path:", input_path, "num:", num)
         G = read_input_file(input_path)
