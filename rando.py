@@ -238,28 +238,28 @@ def solver1(G, c, k, q):
 if __name__ == '__main__':
     inputs = glob.glob('inputs/large/*')
     num = 0
-    # for input_path in inputs[240:]:
-    #     output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
-    #     print("input path:", input_path, "num:", num)
-    #     G = read_input_file(input_path)
-    #     c, k = solve(G)
-    #     assert is_valid_solution(G, c, k)
-    #     distance = calculate_score(G, c, k)
-    #     write_output_file(G, c, k, output_path)
-    #     num += 1
+    for input_path in inputs[240:]:
+        output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
+        print("input path:", input_path, "num:", num)
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
+        num += 1
         
 
-    # inputs = glob.glob('inputs/medium/*')
-    # num = 0
-    # for input_path in inputs:
-    #     output_path = 'outputs/medium/' + basename(normpath(input_path))[:-3] + '.out'
-    #     print("input path:", input_path, "num:", num)
-    #     G = read_input_file(input_path)
-    #     c, k = solve(G)
-    #     assert is_valid_solution(G, c, k)
-    #     distance = calculate_score(G, c, k)
-    #     write_output_file(G, c, k, output_path)
-    #     num += 1
+    inputs = glob.glob('inputs/medium/*')
+    num = 0
+    for input_path in inputs:
+        output_path = 'outputs/medium/' + basename(normpath(input_path))[:-3] + '.out'
+        print("input path:", input_path, "num:", num)
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
+        num += 1
 
     inputs = glob.glob('inputs/small/*')
     num = 0
