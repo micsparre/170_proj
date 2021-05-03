@@ -177,7 +177,6 @@ def solver1(G, c, k, q):
                 nodes_deleted.append(node_to_delete)
                 for edge in edges_deleted.copy():
                     if edge[0] == node_to_delete or edge[1] == node_to_delete:
-                        print('it worked')
                         edges_deleted.remove(edge)
                         k += 1
 
