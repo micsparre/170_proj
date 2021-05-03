@@ -48,10 +48,33 @@ def solve(G):
         # distance_1 = calculate_score(G, c, k)
         # distance_2 = calculate_score(G, c, k)
     elif G.number_of_nodes() <= 50:
-        path_cost_1, nodes_deleted_1, edges_deleted_1 = solver1(G.copy(), 3, 50)
-        path_cost_2, nodes_deleted_2, edges_deleted_2 = solver2(G.copy(), 3, 50)
-        path_cost_3, nodes_deleted_3, edges_deleted_3 = solver3(G.copy(), 3, 50)
-        path_cost_4, nodes_deleted_4, edges_deleted_4 = solver4(G.copy(), 3, 50)
+
+        q = mp.Queue()
+        p1 = mp.Process(target=solver1, args=(G.copy(), 3, 50, q, ))
+        p2 = mp.Process(target=solver2, args=(G.copy(), 3, 50, q, ))
+        p3 = mp.Process(target=solver3, args=(G.copy(), 3, 50, q, ))
+        p4 = mp.Process(target=solver4, args=(G.copy(), 3, 50, q, ))
+        p1.start()
+        p2.start()
+        p3.start()
+        p4.start() 
+
+        p1.join()
+        p2.join()
+        p3.join()
+        p4.join()
+
+        path_cost_1, nodes_deleted_1, edges_deleted_1 = q.get()
+        path_cost_2, nodes_deleted_2, edges_deleted_2 = q.get()
+        path_cost_3, nodes_deleted_3, edges_deleted_3 = q.get()
+        path_cost_4, nodes_deleted_4, edges_deleted_4 = q.get()
+
+
+
+        # path_cost_1, nodes_deleted_1, edges_deleted_1 = solver1(G.copy(), 3, 50)
+        # path_cost_2, nodes_deleted_2, edges_deleted_2 = solver2(G.copy(), 3, 50)
+        # path_cost_3, nodes_deleted_3, edges_deleted_3 = solver3(G.copy(), 3, 50)
+        # path_cost_4, nodes_deleted_4, edges_deleted_4 = solver4(G.copy(), 3, 50)
     else:
 
         q = mp.Queue()
@@ -69,10 +92,10 @@ def solve(G):
         p3.join()
         p4.join()
 
-        path_cost_1, nodes_deleted_1, edges_deleted_1 = q.get()
-        path_cost_2, nodes_deleted_2, edges_deleted_2 = q.get()
-        path_cost_3, nodes_deleted_3, edges_deleted_3 = q.get()
-        path_cost_4, nodes_deleted_4, edges_deleted_4 = q.get()
+        path_cost_1, nodes_deleted_1, edges_deleted_1 = q1.get()
+        path_cost_2, nodes_deleted_2, edges_deleted_2 = q2.get()
+        path_cost_3, nodes_deleted_3, edges_deleted_3 = q3.get()
+        path_cost_4, nodes_deleted_4, edges_deleted_4 = q4.get()
 
         # path_cost_1, nodes_deleted_1, edges_deleted_1 = solver1(G.copy(), 5, 100)
         # path_cost_2, nodes_deleted_2, edges_deleted_2 = solver2(G.copy(), 5, 100)
@@ -421,8 +444,11 @@ def solver4(G, c, k, q):
 
 
 
-if __name__ == "__main__":
-    solve(read_input_file("inputs/large/large-159.in"))
+# if __name__ == "__main__":
+#     G = read_input_file("inputs/large/large-138.in")
+#     c, k = solve(G)
+#     print(is_valid_solution(G, c, k))
+#     print(calculate_score(G, c, k))
 # solve(read_input_file("input/hw12.in"))
 
 # NetworkX useful functions:
@@ -447,43 +473,41 @@ if __name__ == "__main__":
 
 
 # For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
-# if __name__ == '__main__':
-#     inputs = glob.glob('inputs/large/*')
-#     num = 0
-#     for input_path in inputs[59:]:
-#         output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
-#         print("input path:", input_path, "num:", num)
-#         G = read_input_file(input_path)
-#         c, k = solve(G)
-#         assert is_valid_solution(G, c, k)
-#         distance = calculate_score(G, c, k)
-#         write_output_file(G, c, k, output_path)
-#         num += 1
+if __name__ == '__main__':
+    inputs = glob.glob('inputs/large/*')
+    num = 0
+    for input_path in inputs[240:]:
+        output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
+        print("input path:", input_path, "num:", num)
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
+        num += 1
         
 
-#     inputs = glob.glob('inputs/medium/*')
-#     num = 0
-#     for input_path in inputs:
-#         output_path = 'outputs/medium/' + basename(normpath(input_path))[:-3] + '.out'
-#         print("input path:", input_path, "num:", num)
-#         G = read_input_file(input_path)
-#         c, k = solve(G)
-#         assert is_valid_solution(G, c, k)
-#         distance = calculate_score(G, c, k)
-#         write_output_file(G, c, k, output_path)
-#         num += 1
-#         print(num)
+    inputs = glob.glob('inputs/medium/*')
+    num = 0
+    for input_path in inputs:
+        output_path = 'outputs/medium/' + basename(normpath(input_path))[:-3] + '.out'
+        print("input path:", input_path, "num:", num)
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
+        num += 1
 
-#     inputs = glob.glob('inputs/small/*')
-#     num = 0
-#     for input_path in inputs:
-#         output_path = 'outputs/small/' + basename(normpath(input_path))[:-3] + '.out'
-#         print("input path:", input_path, "num:", num)
-#         G = read_input_file(input_path)
-#         c, k = solve(G)
-#         assert is_valid_solution(G, c, k)
-#         distance = calculate_score(G, c, k)
-#         write_output_file(G, c, k, output_path)
-#         num += 1
-#         print(num)
+    inputs = glob.glob('inputs/small/*')
+    num = 0
+    for input_path in inputs:
+        output_path = 'outputs/small/' + basename(normpath(input_path))[:-3] + '.out'
+        print("input path:", input_path, "num:", num)
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
+        num += 1
 

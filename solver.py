@@ -17,7 +17,7 @@ def solve(G):
         c: list of cities (nodes) to remove
         k: list of edges to remove
     """
-    path_score = nx.dijkstra_path_length(G, 0, G.number_of_nodes() - 1)
+    # path_score = nx.dijkstra_path_length(G, 0, G.number_of_nodes() - 1)
     if G.number_of_nodes() <= 30:
 
         
@@ -382,7 +382,10 @@ def solver4(G, c, k):
 
 
 # if __name__ == "__main__":
-#     solve(read_input_file("inputs/large/large-11.in"))
+#     G = read_input_file("inputs/large/large-138.in")
+#     c, k = solve(G)
+#     print(is_valid_solution(G, c, k))
+#     print(calculate_score(G, c, k))
 # solve(read_input_file("input/hw12.in"))
 
 # NetworkX useful functions:
@@ -410,7 +413,7 @@ def solver4(G, c, k):
 if __name__ == '__main__':
     inputs = glob.glob('inputs/large/*')
     num = 0
-    for input_path in inputs[86:]:
+    for input_path in inputs[240:]:
         output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
         print("input path:", input_path, "num:", num)
         G = read_input_file(input_path)
@@ -432,7 +435,6 @@ if __name__ == '__main__':
         distance = calculate_score(G, c, k)
         write_output_file(G, c, k, output_path)
         num += 1
-        print(num)
 
     inputs = glob.glob('inputs/small/*')
     num = 0
@@ -445,5 +447,4 @@ if __name__ == '__main__':
         distance = calculate_score(G, c, k)
         write_output_file(G, c, k, output_path)
         num += 1
-        print(num)
 
