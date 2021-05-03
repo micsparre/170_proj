@@ -403,10 +403,8 @@ def solver4(G, c, k):
 # For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
 if __name__ == '__main__':
     inputs = glob.glob('inputs/large/*')
-    print(inputs[57:])
-
     num = 0
-    for input_path in inputs[58:]:
+    for input_path in inputs[59:]:
         output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
         print("input path:", input_path, "num:", num)
         G = read_input_file(input_path)
