@@ -116,10 +116,10 @@ def solve(G):
             best_edges_4 = edges_deleted_4
             best_nodes_4 = nodes_deleted_4
     
-        print(1 + 4*i, ": ", path_cost_1 - path_score)
-        print(2 + 4*i, ": ", path_cost_2 - path_score)
-        print(3 + 4*i, ": ", path_cost_3 - path_score)
-        print(4 + 4*i, ": ", path_cost_4 - path_score)
+        # print(1 + 4*i, ": ", path_cost_1 - path_score)
+        # print(2 + 4*i, ": ", path_cost_2 - path_score)
+        # print(3 + 4*i, ": ", path_cost_3 - path_score)
+        # print(4 + 4*i, ": ", path_cost_4 - path_score)
 
     if (best_cost_1 >= best_cost_2 and best_cost_1 >= best_cost_3 and best_cost_1 >= best_cost_4):
         return best_nodes_1, best_edges_1
