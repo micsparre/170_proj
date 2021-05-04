@@ -32,7 +32,7 @@ def solve(G):
     best_nodes_4 = []
     best_edges_4 = []
 
-    for i in range(2):
+    for i in range(1):
         if G.number_of_nodes() <= 30:
             q = mp.Queue()
             p1 = mp.Process(target=solver1, args=(G.copy(), 1, 15, q, ))
@@ -142,18 +142,21 @@ def solver1(G, c, k, q):
         c: list of cities to remove
         k: list of edges to remove
     """
+    path_score = nx.dijkstra_path_length(G, 0, G.number_of_nodes() - 1)
+
+    cpg = G.copy()
     start_node = 0
     end_node = G.number_of_nodes() - 1
     nodes_deleted = [] # list of nodes deleted
     edges_deleted = [] # list of tuples of edges deleted
     timeout = 0
     cost, path = nx.single_source_dijkstra(G, start_node, target = end_node, weight = "weight")
-
+    determined_c = c
     c_plus_k = c + k
     while (c != 0 or k != 0) and timeout < 10000:
         cost, path = nx.single_source_dijkstra(G, start_node, target = end_node, weight = "weight")
         flip = random.random()
-        if flip < (c / c_plus_k) and len(path) > 2 and c > 0:
+        if flip < (determined_c / c_plus_k) and len(path) > 2 and c > 0:
             node_to_delete = None
             greatest_cost = cost
             num_can_be_deleted = 0
@@ -183,7 +186,7 @@ def solver1(G, c, k, q):
                 c -= 1
         elif len(path) == 2 and k == 0:  # s->t is shortest path (so no node deletion)
             break
-        elif flip >= (c / c_plus_k) and k > 0:
+        elif flip >= (determined_c / c_plus_k) and k > 0:
             #delete an edge
             max_cost = cost
             edge_to_delete = None
@@ -201,7 +204,34 @@ def solver1(G, c, k, q):
                 edges_deleted.append(edge_to_delete)
                 k -= 1
         timeout += 1
+
+
+
+    ccost, cpath = nx.single_source_dijkstra(G, start_node, target = end_node, weight = "weight")
+    before_cost = ccost
+    for deleted_edge in edges_deleted.copy():
+        changed = False
+        G.add_edge(deleted_edge[0], deleted_edge[1], weight = cpg.edges[deleted_edge[0], deleted_edge[1]]["weight"])
+        for i in range(len(cpath.copy()) - 1):
+            weight_rm = G.edges[cpath[i], cpath[i + 1]]["weight"]
+            G.remove_edge(cpath[i], cpath[i + 1])
+            if nx.is_connected(G):
+                rm_cost = nx.shortest_path_length(G, source = start_node, target = end_node, weight = "weight")
+                if rm_cost > ccost:
+                    edges_deleted.remove(deleted_edge)
+                    edges_deleted.append((cpath[i], cpath[i + 1]))
+                    ccost, cpath = nx.single_source_dijkstra(G, start_node, target = end_node, weight = "weight")
+                    changed = True
+                    break   
+            G.add_edge(cpath[i], cpath[i + 1], weight = weight_rm)
+        if not changed:
+            G.remove_edge(deleted_edge[0], deleted_edge[1])
+
+
+
+    
     path_cost = nx.dijkstra_path_length(G, start_node, end_node)
+    print("before cost: ", before_cost - path_score, "after cost: ", path_cost - path_score)
     q.put((path_cost, nodes_deleted, edges_deleted))
 
 
